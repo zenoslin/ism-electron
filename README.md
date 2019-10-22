@@ -2,4 +2,4 @@
 
 :ship: An inventory management system app.
 
-Electron + Vue + Ant design + nedb
+Electron + Vue + Ant design + Nedb
