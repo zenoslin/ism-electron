@@ -10,11 +10,11 @@
           </a-menu-item>
           <a-menu-item key="2" @click="handleSider(2)">
             <a-icon type="video-camera" />
-            <span>出货</span>
+            <span>进货</span>
           </a-menu-item>
           <a-menu-item key="3" @click="handleSider(3)">
             <a-icon type="upload" />
-            <span>进货</span>
+            <span>出货</span>
           </a-menu-item>
         </a-menu>
       </a-layout-sider>

@@ -59,11 +59,10 @@ export default {
     },
     handleSubmit(e) {
       e.preventDefault();
-      this.form.validateFields((err, values) => {
+      this.form.validateFields(async (err, values) => {
         if (!err) {
-          this.$db.insert({ type: 1, ...values }, (err, ret) => {
-            console.log(`insert succ!`);
-          });
+          let data = await this.$db.insert({ type: 1, ...values });
+          console.log(data);
         }
       });
     }

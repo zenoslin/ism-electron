@@ -7,8 +7,9 @@ export default {
     return { dataStore: [] };
   },
   mounted() {
-    this.$db.find({ type: 1 }, (err, ret) => {
-      this.dataStore = ret;
+    this.$db.find({ type: 1 }).then(res => {
+      console.log(res);
+      this.dataStore = res;
     });
   }
 };
