@@ -1,8 +1,8 @@
+import 'element-ui/lib/theme-chalk/index.css';
 import Vue from 'vue';
 import axios from 'axios';
 import db from './datastore';
-import Antd from 'ant-design-vue';
-import 'ant-design-vue/dist/antd.css';
+import ElementUI from 'element-ui';
 
 import App from './App';
 import router from './router';
@@ -12,7 +12,7 @@ if (!process.env.IS_WEB) Vue.use(require('vue-electron'));
 Vue.http = Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
 
-Vue.use(Antd);
+Vue.use(ElementUI);
 Vue.prototype.$db = db;
 
 /* eslint-disable no-new */

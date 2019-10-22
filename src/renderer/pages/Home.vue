@@ -1,5 +1,7 @@
 <template>
-  <div>{{dataStore}}</div>
+  <div>
+    <div class="home-data">{{dataStore}}</div>
+  </div>
 </template>
 <script>
 export default {
@@ -16,4 +18,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.home-data {
+  font-size: 16px;
+  line-height: 24px;
+}
 </style>
