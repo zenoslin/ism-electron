@@ -3,5 +3,8 @@ import defineData from './defineData';
 
 export default {
   defineData,
-  ...datastore
+  ...datastore,
+  test(a, b) {
+    return a + b;
+  }
 };

@@ -1,10 +1,8 @@
 import Datastore from 'nedb';
-import path from 'path';
-import { remote } from 'electron';
 
 const dataStore = new Datastore({
   autoload: true,
-  filename: path.join(remote.app.getPath('userData'), './data.db')
+  filename: './data/data.db'
 });
 
 export default {
