@@ -56,7 +56,7 @@ export default {
         update,
         options,
         (err, numAffected, affectedDocuments, upsert) => {
-          resolve({ errMsg: err, data: res });
+          resolve({ errMsg: err, data: {numAffected, affectedDocuments, upsert} });
         }
       );
     });
