@@ -5,7 +5,7 @@ import datastore from './datastore';
  * @param {Array} dataList
  * @return {Promise} { errMsg, data }
  */
-const inputDate = dataList => {
+const inputDate = (dataList, decrease = false) => {
   return new Promise(async (resolve, reject) => {
     let hasUndefine = { isundefine: false, undefinId: null };
     let oldDataList = {};
@@ -26,7 +26,9 @@ const inputDate = dataList => {
     // 数据更新相加
     for (let j = 0; j < dataList.length; j++) {
       let oldData = oldDataList[dataList[j].id];
-      let newVal = oldData.value + dataList[j].value;
+      let newVal = decrease
+        ? oldData.value - dataList[j].value
+        : oldData.value + dataList[j].value;
       let { errMsg } = await datastore.update(
         { _id: oldData._id },
         { $set: { value: newVal } },
