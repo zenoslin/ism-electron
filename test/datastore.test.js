@@ -39,3 +39,20 @@ test('修改数据', async () => {
   const findOneRes3 = await datastore.findOne({ id: now });
   expect(findOneRes3.data.value).toBe(2);
 })
+
+test('删除数据', async () => {
+  const now = Date.now();
+  // 定义数据
+  const defineRes = await datastore.defineData({ id: now, name: 'test', value: 1 });
+  // 唯一id未定义
+  const removeRes1 = await datastore.removeData({ _id: defineRes.data._id + 1 });
+  expect(removeRes1.errMsg).toBeTruthy();
+  // 删除流程
+  const removeRes2 = await datastore.removeData({ _id: defineRes.data._id });
+  expect(removeRes2.errMsg).toBeFalsy();
+  expect(removeRes2.data).toBeTruthy();
+  // 验证数据删除
+  const findOneRes = await datastore.findOne({ _id: defineRes.data._id });
+  console.log('findOneRes', findOneRes);
+  expect(findOneRes.data).toBeFalsy();
+})
