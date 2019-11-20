@@ -1,25 +1,34 @@
 <template>
   <div>
-    <div class="home-data">{{dataStore}}</div>
+    <el-button class="add-btn" type="primary">Add</el-button>
+    <el-table class="table" :data="dataStore" stripe border>
+      <el-table-column prop="id" label="ID" width="180"></el-table-column>
+      <el-table-column prop="name" label="姓名" width="180"></el-table-column>
+      <el-table-column prop="value" label="数量"></el-table-column>
+    </el-table>
   </div>
 </template>
 <script>
 export default {
   data() {
-    return { dataStore: [] };
+    return {
+      dataStore: []
+    };
   },
-  mounted() {
-    this.$db.find({ type: 1 }).then(res => {
-      console.log(res);
-      this.dataStore = res;
-    });
+  async mounted() {
+    let { data } = await this.$db.find({});
+    this.dataStore = data;
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.home-data {
-  font-size: 16px;
-  line-height: 24px;
+.add-btn {
+  display: block;
+  margin: 10px 0 10px auto;
+}
+.table {
+  width: 100%;
+  height: 100%;
 }
 </style>
