@@ -61,15 +61,11 @@ export default {
       this.dialogFormVisible = false;
     },
     checkInput() {
-      const checkId = new InputCheck(this.form.id);
-      checkId.isEmpty('ID不能为空');
-      if (!checkId.isPass) {
+      if (!new InputCheck(this.form.id).isEmpty('ID不能为空').isPass) {
         this.$message.error(checkId.errorMessage);
         return false;
       }
-      const checkName = new InputCheck(this.form.name);
-      checkName.isEmpty('名称不能为空');
-      if (!checkName.isPass) {
+      if (!new InputCheck(this.form.name).isEmpty('名称不能为空').isPass) {
         this.$message.error(checkName.errorMessage);
         return false;
       }

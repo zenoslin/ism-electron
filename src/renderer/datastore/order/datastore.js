@@ -2,7 +2,7 @@ import Datastore from 'nedb';
 
 const dataStore = new Datastore({
   autoload: true,
-  filename: './data/goods.db'
+  filename: './data/order.db'
 });
 
 export default {

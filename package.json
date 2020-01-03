@@ -4,7 +4,6 @@
   "version": "0.0.1",
   "author": "zenoslin",
   "description": "An ism app.",
-  "license": null,
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js",

@@ -6,7 +6,6 @@ import datastore from './datastore';
  * @return {Promise} { errMsg, data }
  */
 const defineData = data => {
-  console.log(data);
   return new Promise(async (resolve, reject) => {
     let fineRes = await datastore.findOne({ id: data.id });
     if (fineRes.data) {
