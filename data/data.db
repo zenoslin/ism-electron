@@ -5,11 +5,13 @@
 {"id":1571996248235,"name":"test2","value":2,"_id":"6ksbfTERRE1dRxvo"}
 {"id":1571996598376,"name":"test2","value":2,"_id":"7eu5DVj6xAmpDh87"}
 {"id":1571996314619,"name":"test","value":3,"_id":"8GLPH1JDebSO5okm"}
+{"id":123,"name":"123","value":0,"_id":"9SW7i9AkJ57DIkkM"}
 {"id":1571994872263,"name":"test","value":1,"_id":"AsvMwbvrRAjRZsRU"}
 {"id":1571995074006,"name":"test","value":1,"_id":"Av0HrhsH0z0kTK1h"}
 {"id":1571995040966,"name":"test2","value":1,"_id":"Bjp9s2whjmFKS37V"}
 {"id":1571995841433,"name":"test","value":1,"_id":"D3EpcrJ5F1XUD8m7"}
 {"id":1571996598315,"name":"test","value":1,"_id":"GwD5D2VR5Xgj5y3f"}
+{"id":1234,"name":"123","value":0,"_id":"IRCRk6CUAxxD8BlR"}
 {"id":1571995959618,"name":"test","value":1,"_id":"KPY6aehh5pEk9Dze"}
 {"id":1574076668158,"name":"test2","value":2,"_id":"MdzPlXpvdyi9cpGZ"}
 {"id":1571996216749,"name":"test2","value":2,"_id":"NKgVr88ia6tLuPK6"}
@@ -65,3 +67,11 @@
 {"id":1571998667351,"name":"test2","value":2,"_id":"w2oZSe1XBCbEaH7b"}
 {"id":1571995841434,"name":"test2","value":1,"_id":"yWGqN2cgpqmlsRZu"}
 {"id":1571996237917,"name":"test","value":3,"_id":"zSs7cfrnrnsulafA"}
+{"id":1578034295465,"name":"test","value":1,"_id":"kN3q5QDuPmILf0qQ"}
+{"id":1578034295530,"name":"test","value":1,"_id":"SIqSPPKihG5gtlHR"}
+{"id":1578034295531,"name":"test2","value":1,"_id":"bhQsNQXrIybmfzlO"}
+{"id":1578034295530,"name":"test","value":3,"_id":"SIqSPPKihG5gtlHR"}
+{"id":1578034295531,"name":"test2","value":2,"_id":"bhQsNQXrIybmfzlO"}
+{"id":1578034295530,"name":"test","value":2,"_id":"SIqSPPKihG5gtlHR"}
+{"id":1578034295536,"name":"test","value":1,"_id":"ZnC7y059YEdcOpeq"}
+{"$$deleted":true,"_id":"ZnC7y059YEdcOpeq"}

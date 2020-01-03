@@ -1,4 +1,4 @@
-import datastore from '../src/renderer/datastore/index';
+import datastore from '../src/renderer/datastore/goods/index';
 
 test('定义数据', async () => {
   const now = Date.now();
