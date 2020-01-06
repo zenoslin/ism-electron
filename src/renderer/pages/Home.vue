@@ -91,7 +91,7 @@ export default {
     personStore(val) {
       if (this.radio !== '人物') return;
       this.dataStore = val;
-    },
+    }
   },
   methods: {
     // 定义物品
@@ -103,7 +103,7 @@ export default {
       }
 
       const res = await this.$db.goods.defineData({
-        id: +this.goodsForm.id,
+        id: this.goodsForm.id,
         name: this.goodsForm.name,
         value: +this.goodsForm.value
       });
@@ -145,7 +145,7 @@ export default {
       }
 
       const res = await this.$db.person.defineData({
-        id: +this.personForm.id,
+        id: this.personForm.id,
         name: this.personForm.name
       });
       if (res.errMsg) {
@@ -176,6 +176,9 @@ export default {
       }
       return true;
     }
+  },
+  async created() {
+    await this.$store.dispatch('updatePersonStore');
   }
 };
 </script>

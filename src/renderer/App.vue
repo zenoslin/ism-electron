@@ -15,6 +15,10 @@
             <i class="el-icon-document"></i>
             <span slot="title">导航三</span>
           </el-menu-item>
+          <el-menu-item index="4">
+            <i class="el-icon-document"></i>
+            <span slot="title">导航四</span>
+          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-main>
@@ -45,9 +49,17 @@ export default {
         case '3':
           this.$router.replace('/sale');
           break;
+        case '4':
+          this.$router.replace('/order');
+          break;
       }
       this.curNav = +val;
     }
+  },
+  async created() {
+    await this.$store.dispatch('updateGoodsStore');
+    await this.$store.dispatch('updatePersonStore');
+    await this.$store.dispatch('updateOrder');
   }
 };
 </script>
@@ -58,8 +70,8 @@ body {
   margin: 0;
 }
 #app {
-  font-family: -apple-system, SF UI Text, Helvetica Neue, Helvetica,
-    'Microsoft YaHei', Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
 }
 
 .el-aside {

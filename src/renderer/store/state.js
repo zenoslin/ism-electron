@@ -1,4 +1,5 @@
 export default {
   goodsStore: [],
-  personStore: []
+  personStore: [],
+  orderStore: []
 };
