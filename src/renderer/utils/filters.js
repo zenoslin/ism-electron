@@ -11,7 +11,6 @@ Vue.filter('formatName', id => {
 
 Vue.filter('formatPerson', id => {
   let res = '';
-  console.log('store.state.personStore', store.state.personStore);
   store.state.personStore.forEach(item => {
     if (item.id === id) res = item.name;
   });

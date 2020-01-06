@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div class="order-top">
+      <el-select v-model="personId" placeholder="请选择人物">
+        <el-option v-for="item in personStore" :key="item.id" :label="item.name" :value="item.id"></el-option>
+      </el-select>
+      <el-date-picker class="picker" v-model="date" type="date" placeholder="请选择日期"></el-date-picker>
+    </div>
     <el-table class="table" :data="dataStore" stripe border>
       <el-table-column prop="date" label="时间" width="180">
         <template slot-scope="scope">{{scope.row.date | formatTime}}</template>
@@ -33,6 +39,8 @@ export default {
   name: 'Order',
   data() {
     return {
+      personId: '',
+      date: '',
       dataStore: [],
       dialogDetailsVisible: false,
       orderDetails: {}
@@ -41,6 +49,43 @@ export default {
   computed: {
     orderStore() {
       return this.$store.state.orderStore;
+    },
+    personStore() {
+      return this.$store.state.personStore;
+    }
+  },
+  watch: {
+    personId(val) {
+      if (this.orderStore.length < 1) return;
+      let tempStore = this.orderStore;
+      if (val) {
+        tempStore = tempStore.filter(item => {
+          return item.personId === val;
+        });
+      }
+      if (this.date) {
+        let timestamp = new Date(this.date).getTime();
+        tempStore = tempStore.filter(item => {
+          if (item.date === timestamp) return item;
+        });
+      }
+      this.dataStore = tempStore;
+    },
+    date(val) {
+      if (this.orderStore.length < 1) return;
+      let tempStore = this.orderStore;
+      if (this.personId) {
+        tempStore = tempStore.filter(item => {
+          return item.personId === val;
+        });
+      }
+      if (val) {
+        let timestamp = new Date(this.date).getTime();
+        tempStore = tempStore.filter(item => {
+          if (item.date === timestamp) return item;
+        });
+      }
+      this.dataStore = tempStore;
     }
   },
   methods: {
@@ -64,5 +109,13 @@ export default {
 .details-des {
   margin-bottom: 10px;
   font-size: 16px;
+}
+.order-top {
+  width: 100%;
+  height: 56px;
+  .picker {
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+      'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  }
 }
 </style>
