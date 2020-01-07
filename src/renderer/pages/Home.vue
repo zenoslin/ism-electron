@@ -9,7 +9,12 @@
     <el-table class="table" :data="dataStore" stripe border>
       <el-table-column prop="id" label="ID" width="180"></el-table-column>
       <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-      <el-table-column prop="value" label="数量"></el-table-column>
+      <el-table-column prop="value" label="数量" width="180" v-if="radio === '物品'"></el-table-column>
+      <el-table-column label="操作" v-if="radio === '物品'">
+        <template slot-scope="scope">
+          <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <el-dialog title="添加物品" :visible.sync="dialogGoodsVisible" v-loading="addGoodsLoading">
       <el-form :model="goodsForm">
@@ -42,6 +47,13 @@
         <el-button type="primary" @click="handlePersonDefine">确 定</el-button>
       </div>
     </el-dialog>
+    <el-dialog title="提示" :visible.sync="dialogDeleteVisible" width="30%">
+      <span>是否确定删除{{deleteItem.name}}</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogDeleteVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleConfirmDetele">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -60,7 +72,9 @@ export default {
       dialogPersonVisible: false,
       personForm: { id: '', name: '' },
       addPersonLoading: false,
-      formLabelWidth: '120px'
+      formLabelWidth: '120px',
+      deleteItem: { id: '', name: '' },
+      dialogDeleteVisible: false
     };
   },
   computed: {
@@ -175,6 +189,24 @@ export default {
         return false;
       }
       return true;
+    },
+    handleDelete(val) {
+      this.deleteItem = val;
+      this.dialogDeleteVisible = true;
+    },
+    async handleConfirmDetele() {
+      const res = await this.$db.goods.removeData(this.deleteItem);
+      if (res.errMsg) {
+        this.$message.error(`错误：${res.errMsg}`);
+      }
+      console.log('res', res);
+      this.$message({
+        message: `删除${this.deleteItem.name}成功`,
+        type: 'success'
+      });
+      await this.$store.dispatch('updateGoodsStore');
+      this.deleteItem = { id: '', name: '' };
+      this.dialogDeleteVisible = false;
     }
   },
   async created() {
