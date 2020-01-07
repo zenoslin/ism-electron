@@ -51,6 +51,8 @@
 </template>
 
 <script>
+import * as staticType from '../staticType';
+
 export default {
   data() {
     return {
@@ -100,6 +102,7 @@ export default {
         return;
       }
       let res = await this.$store.dispatch('addBuyOrder', {
+        type: staticType.ORDER_TYPE_BUY,
         personId: this.personId,
         date: new Date(this.date).getTime(),
         list

@@ -1,6 +1,10 @@
 <template>
   <div>
     <div class="order-top">
+      <el-radio-group v-model="radio">
+        <el-radio-button label="购买"></el-radio-button>
+        <el-radio-button label="出售"></el-radio-button>
+      </el-radio-group>
       <el-select v-model="personId" placeholder="请选择人物">
         <el-option v-for="item in personStore" :key="item.id" :label="item.name" :value="item.id"></el-option>
       </el-select>
@@ -43,7 +47,8 @@ export default {
       date: '',
       dataStore: [],
       dialogDetailsVisible: false,
-      orderDetails: {}
+      orderDetails: {},
+      radio: '购买'
     };
   },
   computed: {
