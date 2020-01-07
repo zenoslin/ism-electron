@@ -4,25 +4,32 @@
       <el-aside class="ism-aside" style="width:200px">
         <el-menu default-active="1" @select="handleSider">
           <el-menu-item index="1">
-            <i class="el-icon-location"></i>
-            <span slot="title">导航一</span>
+            <i class="el-icon-box"></i>
+            <span slot="title">总览</span>
           </el-menu-item>
           <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
+            <i class="el-icon-shopping-cart-full"></i>
+            <span slot="title">购买</span>
           </el-menu-item>
           <el-menu-item index="3">
-            <i class="el-icon-document"></i>
-            <span slot="title">导航三</span>
+            <i class="el-icon-shopping-bag-1"></i>
+            <span slot="title">出售</span>
           </el-menu-item>
           <el-menu-item index="4">
-            <i class="el-icon-document"></i>
-            <span slot="title">导航四</span>
+            <i class="el-icon-tickets"></i>
+            <span slot="title">订单</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
       <el-main>
         <router-view />
+        <el-dialog title="提示" :visible.sync="dialogRouteVisible" width="30%">
+          <span>如果还没订单还未完成，离开当前页面订单将会清空</span>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogRouteVisible = false">取 消</el-button>
+            <el-button type="primary" @click="confirmRoute">确 定</el-button>
+          </span>
+        </el-dialog>
       </el-main>
     </el-container>
   </div>
@@ -33,12 +40,32 @@ export default {
   name: 'ism-electron',
   data() {
     return {
-      curNav: 1
+      curNav: 1,
+      dialogRouteVisible: false,
+      orderRoute: ''
     };
   },
   methods: {
     handleSider(val) {
       if (+val === this.curNav) return;
+      if (this.curNav === 2 || this.curNav === 3) {
+        this.buyingRoute(val);
+        return;
+      }
+      this.switchRoute(val);
+      this.curNav = +val;
+    },
+    buyingRoute(val) {
+      this.orderRoute = val;
+      this.dialogRouteVisible = true;
+    },
+    confirmRoute() {
+      this.switchRoute(this.orderRoute);
+      this.curNav = +this.orderRoute;
+      this.orderRoute = '';
+      this.dialogRouteVisible = false;
+    },
+    switchRoute(val) {
       switch (val) {
         case '1':
           this.$router.replace('/');
@@ -53,7 +80,6 @@ export default {
           this.$router.replace('/order');
           break;
       }
-      this.curNav = +val;
     }
   },
   async created() {
@@ -65,6 +91,9 @@ export default {
 </script>
 
 <style lang="scss">
+$bgcolor: #fff;
+// $bgcolor: #faf9de;
+
 body {
   padding: 0;
   margin: 0;
@@ -72,13 +101,18 @@ body {
 #app {
   font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
     'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  background: $bgcolor;
 }
 
 .el-aside {
   height: 100vh;
-  background-color: #fff;
+  background-color: $bgcolor;
   color: #333;
   text-align: center;
+}
+
+.el-menu {
+  background-color: $bgcolor;
 }
 
 body > .el-container {

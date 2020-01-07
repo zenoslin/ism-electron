@@ -200,7 +200,7 @@ export default {
   right: 0;
   background: #fff;
   border-top: 1px solid #ebeef5;
-  z-index: 10000;
+  z-index: 10;
   .add-btn {
     position: absolute;
     top: 50%;
