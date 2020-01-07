@@ -26,7 +26,7 @@
     <el-dialog title="订单详情" :visible.sync="dialogDetailsVisible">
       <div
         class="details-des"
-      >人物：{{orderDetails.personId | formatPerson}} 时间：{{orderDetails.date | formatTime}}</div>
+      >人物：{{orderDetails.personId | formatPerson}} / 时间：{{orderDetails.date | formatTime}} / 订单类型：{{orderDetails.type === 1 ? '购买' : '出售'}}</div>
       <el-table class="table" :data="orderDetails.list" stripe border>
         <el-table-column prop="id" label="ID" width="180"></el-table-column>
         <el-table-column prop="id" label="名称" width="180">
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import * as staticType from '../staticType';
+
 export default {
   name: 'Order',
   data() {
@@ -57,40 +59,57 @@ export default {
     },
     personStore() {
       return this.$store.state.personStore;
+    },
+    buyOrderList() {
+      return this.$store.getters.buyOrderList;
+    },
+    saleOrderList() {
+      return this.$store.getters.saleOrderList;
     }
   },
   watch: {
     personId(val) {
-      if (this.orderStore.length < 1) return;
-      let tempStore = this.orderStore;
+      const curList =
+        this.radio === '购买' ? this.buyOrderList : this.saleOrderList;
+      if (curList.length < 1) return;
+      let tempStore = curList;
       if (val) {
-        tempStore = tempStore.filter(item => {
-          return item.personId === val;
-        });
+        tempStore = tempStore.filter(item => item.personId === val);
       }
       if (this.date) {
         let timestamp = new Date(this.date).getTime();
-        tempStore = tempStore.filter(item => {
-          if (item.date === timestamp) return item;
-        });
+        tempStore = tempStore.filter(item => item.date === timestamp);
       }
       this.dataStore = tempStore;
     },
     date(val) {
-      if (this.orderStore.length < 1) return;
-      let tempStore = this.orderStore;
+      console.log('timestamp');
+      const curList =
+        this.radio === '购买' ? this.buyOrderList : this.saleOrderList;
+      if (curList.length < 1) return;
+      let tempStore = curList;
       if (this.personId) {
-        tempStore = tempStore.filter(item => {
-          return item.personId === val;
-        });
+        tempStore = tempStore.filter(item => item.personId === this.personId);
       }
       if (val) {
         let timestamp = new Date(this.date).getTime();
-        tempStore = tempStore.filter(item => {
-          if (item.date === timestamp) return item;
-        });
+        tempStore = tempStore.filter(item => item.date === timestamp);
       }
       this.dataStore = tempStore;
+    },
+    radio: {
+      immediate: true,
+      handler(val) {
+        this.dataStore =
+          val === '购买' ? this.buyOrderList : this.saleOrderList;
+      }
+    },
+    orderStore: {
+      deep: true,
+      handler() {
+        this.dataStore =
+          this.radio === '购买' ? this.buyOrderList : this.saleOrderList;
+      }
     }
   },
   methods: {
@@ -101,7 +120,6 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch('updateOrder');
-    this.dataStore = this.orderStore;
   }
 };
 </script>
