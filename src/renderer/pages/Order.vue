@@ -10,8 +10,14 @@
       </el-select>
       <el-date-picker class="picker" v-model="date" type="date" placeholder="请选择日期"></el-date-picker>
     </div>
-    <el-table class="table" :data="dataStore" stripe border>
-      <el-table-column prop="date" label="时间" width="180">
+    <el-table
+      class="table"
+      :data="dataStore"
+      stripe
+      border
+      :default-sort="{prop: 'date', order: 'descending'}"
+    >
+      <el-table-column prop="date" label="时间" width="180" sortable>
         <template slot-scope="scope">{{scope.row.date | formatTime}}</template>
       </el-table-column>
       <el-table-column prop="personId" label="人物" width="180">
@@ -23,12 +29,18 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog title="订单详情" :visible.sync="dialogDetailsVisible">
+    <el-dialog title="订单详情" :visible.sync="dialogDetailsVisible" width="80%">
       <div
         class="details-des"
       >人物：{{orderDetails.personId | formatPerson}} / 时间：{{orderDetails.date | formatTime}} / 订单类型：{{orderDetails.type === 1 ? '购买' : '出售'}}</div>
-      <el-table class="table" :data="orderDetails.list" stripe border>
-        <el-table-column prop="id" label="ID" width="180"></el-table-column>
+      <el-table
+        class="table"
+        :data="orderDetails.list"
+        stripe
+        border
+        :default-sort="{prop: 'date', order: 'ascending'}"
+      >
+        <el-table-column prop="id" label="ID" width="180" sortable></el-table-column>
         <el-table-column prop="id" label="名称" width="180">
           <template slot-scope="scope">{{scope.row.id | formatName}}</template>
         </el-table-column>
@@ -119,6 +131,8 @@ export default {
     }
   },
   async mounted() {
+    await this.$store.dispatch('updateGoodsStore');
+    await this.$store.dispatch('updatePersonStore');
     await this.$store.dispatch('updateOrder');
   }
 };

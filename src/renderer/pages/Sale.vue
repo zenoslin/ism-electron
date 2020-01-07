@@ -1,6 +1,6 @@
 <template>
-  <div class="buy" v-if="dataStore.length > 0">
-    <div class="buy-top">
+  <div class="sale" v-if="dataStore.length > 0">
+    <div class="sale-top">
       <el-select v-model="personId" placeholder="请选择人物">
         <el-option v-for="item in personStore" :key="item.id" :label="item.name" :value="item.id"></el-option>
       </el-select>
@@ -177,10 +177,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.buy {
+.sale {
   width: 100%;
 }
-.buy-top {
+.sale-top {
   width: 100%;
   height: 56px;
   .picker {

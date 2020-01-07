@@ -1,17 +1,20 @@
 <template>
   <div>
-    <el-radio-group v-model="radio">
-      <el-radio-button label="物品"></el-radio-button>
-      <el-radio-button label="人物"></el-radio-button>
-    </el-radio-group>
-    <el-button class="add-btn" type="primary" @click="dialogGoodsVisible = true">添加物品</el-button>
-    <el-button class="add-btn" type="primary" @click="dialogPersonVisible = true">添加人物</el-button>
-    <el-table class="table" :data="dataStore" stripe border>
-      <el-table-column prop="id" label="ID" width="180"></el-table-column>
+    <div class="home-top">
+      <el-radio-group v-model="radio">
+        <el-radio-button label="物品"></el-radio-button>
+        <el-radio-button label="人物"></el-radio-button>
+      </el-radio-group>
+      <el-button type="primary" @click="dialogGoodsVisible = true">添加物品</el-button>
+      <el-button type="primary" @click="dialogPersonVisible = true">添加人物</el-button>
+    </div>
+    <el-table class="table" :data="dataStore" stripe border :default-sort="{prop: 'id', order: 'ascending'}">
+      <el-table-column prop="id" label="ID" width="180" sortable></el-table-column>
       <el-table-column prop="name" label="姓名" width="180"></el-table-column>
       <el-table-column prop="value" label="数量" width="180" v-if="radio === '物品'"></el-table-column>
       <el-table-column label="操作" v-if="radio === '物品'">
         <template slot-scope="scope">
+          <el-button @click="handleDetail(scope.row.id)" type="text" size="small">详情</el-button>
           <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
@@ -54,6 +57,28 @@
         <el-button type="primary" @click="handleConfirmDetele">确 定</el-button>
       </span>
     </el-dialog>
+    <el-dialog title="物品详情" :visible.sync="dialogDetailsVisible" width="80%">
+      <el-table
+        class="table"
+        :data="goodsDetailList"
+        stripe
+        border
+        :default-sort="{prop: 'date', order: 'descending'}"
+      >
+        <el-table-column prop="date" label="时间" width="180" sortable>
+          <template slot-scope="scope">{{scope.row.date | formatTime}}</template>
+        </el-table-column>
+        <el-table-column prop="personId" label="人物" width="180">
+          <template slot-scope="scope">{{scope.row.personId | formatPerson}}</template>
+        </el-table-column>
+        <el-table-column prop="id" label="物品" width="180">
+          <template slot-scope="scope">{{scope.row.id | formatName}}</template>
+        </el-table-column>
+        <el-table-column prop="value" label="数量">
+          <template slot-scope="scope">{{`${scope.row.type === 1 ? '+' : '-'}${scope.row.value}`}}</template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -73,8 +98,12 @@ export default {
       personForm: { id: '', name: '' },
       addPersonLoading: false,
       formLabelWidth: '120px',
+      // 删除物品弹窗
+      dialogDeleteVisible: false,
       deleteItem: { id: '', name: '' },
-      dialogDeleteVisible: false
+      // 物品详情弹窗
+      dialogDetailsVisible: false,
+      goodsDetailList: []
     };
   },
   computed: {
@@ -83,6 +112,9 @@ export default {
     },
     personStore() {
       return this.$store.state.personStore;
+    },
+    orderStore() {
+      return this.$store.state.orderStore;
     }
   },
   watch: {
@@ -207,17 +239,39 @@ export default {
       await this.$store.dispatch('updateGoodsStore');
       this.deleteItem = { id: '', name: '' };
       this.dialogDeleteVisible = false;
+    },
+    handleDetail(id) {
+      let orderList = this.orderStore;
+      let resList = [];
+      orderList = orderList.filter(item => JSON.stringify(item).indexOf(id));
+      orderList.forEach(item => {
+        let tempList = item.list;
+        tempList.forEach(element => {
+          if (element.id === id)
+            resList.push({
+              type: item.type,
+              date: item.date,
+              personId: item.personId,
+              ...element
+            });
+        });
+      });
+      this.goodsDetailList = resList;
+      this.dialogDetailsVisible = true;
     }
   },
-  async created() {
+  async mounted() {
+    await this.$store.dispatch('updateGoodsStore');
     await this.$store.dispatch('updatePersonStore');
+    await this.$store.dispatch('updateOrder');
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.add-btn {
-  margin: 10px 0 10px auto;
+.home-top {
+  width: 100%;
+  height: 56px;
 }
 .table {
   width: 100%;
