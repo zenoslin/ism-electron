@@ -48,10 +48,11 @@ export default {
   methods: {
     handleSider(val) {
       if (+val === this.curNav) return;
-      if (this.curNav === 2 || this.curNav === 3) {
-        this.buyingRoute(val);
-        return;
-      }
+      // 屏蔽切换nav拦截
+      // if (this.curNav === 2 || this.curNav === 3) {
+      //   this.buyingRoute(val);
+      //   return;
+      // }
       this.switchRoute(val);
       this.curNav = +val;
     },
