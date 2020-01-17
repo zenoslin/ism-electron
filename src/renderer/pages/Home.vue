@@ -8,7 +8,13 @@
       <el-button type="primary" @click="dialogGoodsVisible = true">添加物品</el-button>
       <el-button type="primary" @click="dialogPersonVisible = true">添加人物</el-button>
     </div>
-    <el-table class="table" :data="dataStore" stripe border :default-sort="{prop: 'id', order: 'ascending'}">
+    <el-table
+      class="table"
+      :data="dataStore"
+      stripe
+      border
+      :default-sort="{prop: 'id', order: 'ascending'}"
+    >
       <el-table-column prop="id" label="ID" width="180" sortable></el-table-column>
       <el-table-column prop="name" label="姓名" width="180"></el-table-column>
       <el-table-column prop="value" label="数量" width="180" v-if="radio === '物品'"></el-table-column>
@@ -154,11 +160,16 @@ export default {
         value: +this.goodsForm.value
       });
       if (res.errMsg) {
-        this.$message.error(`错误：${res.errMsg}`);
+        this.$message({
+          showClose: true,
+          message: `错误：${res.errMsg}`,
+          type: 'error'
+        });
         this.addGoodsLoading = false;
         return;
       }
       this.$message({
+        showClose: true,
         message: `增加${res.data.name}成功`,
         type: 'success'
       });
@@ -170,14 +181,22 @@ export default {
     checkGoodsInput() {
       const checkId = new InputCheck(this.goodsForm.id).isEmpty('ID不能为空');
       if (!checkId.isPass) {
-        this.$message.error(checkId.errorMessage);
+        this.$message({
+          showClose: true,
+          message: checkId.errorMessage,
+          type: 'error'
+        });
         return false;
       }
       const checkName = new InputCheck(this.goodsForm.name).isEmpty(
         '名称不能为空'
       );
       if (!checkName.isPass) {
-        this.$message.error(checkName.errorMessage);
+        this.$message({
+          showClose: true,
+          message: checkName.errorMessage,
+          type: 'error'
+        });
         return false;
       }
       return true;
@@ -195,11 +214,16 @@ export default {
         name: this.personForm.name
       });
       if (res.errMsg) {
-        this.$message.error(`错误：${res.errMsg}`);
+        this.$message({
+          showClose: true,
+          message: `错误：${res.errMsg}`,
+          type: 'error'
+        });
         this.addPersonLoading = false;
         return;
       }
       this.$message({
+        showClose: true,
         message: `增加${res.data.name}成功`,
         type: 'success'
       });
@@ -210,14 +234,22 @@ export default {
     checkPersonInput() {
       const checkId = new InputCheck(this.personForm.id).isEmpty('ID不能为空');
       if (!checkId.isPass) {
-        this.$message.error(checkId.errorMessage);
+        this.$message({
+          showClose: true,
+          message: checkId.errorMessage,
+          type: 'error'
+        });
         return false;
       }
       const checkName = new InputCheck(this.personForm.name).isEmpty(
         '名称不能为空'
       );
       if (!checkName.isPass) {
-        this.$message.error(checkName.errorMessage);
+        this.$message({
+          showClose: true,
+          message: checkName.errorMessage,
+          type: 'error'
+        });
         return false;
       }
       return true;
@@ -229,10 +261,15 @@ export default {
     async handleConfirmDetele() {
       const res = await this.$db.goods.removeData(this.deleteItem);
       if (res.errMsg) {
-        this.$message.error(`错误：${res.errMsg}`);
+        this.$message({
+          showClose: true,
+          message: `错误：${res.errMsg}`,
+          type: 'error'
+        });
       }
       console.log('res', res);
       this.$message({
+        showClose: true,
         message: `删除${this.deleteItem.name}成功`,
         type: 'success'
       });

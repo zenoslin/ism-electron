@@ -99,7 +99,11 @@ export default {
       }
       let list = await this.formatDataStore();
       if (list.length < 1 || !this.checkDataList(list)) {
-        this.$message.error('请检查数据');
+        this.$message({
+          showClose: true,
+          message: '请检查数据',
+          type: 'error'
+        });
         return;
       }
       let res = await this.$store.dispatch('addBuyOrder', {
@@ -109,10 +113,15 @@ export default {
         list
       });
       if (res.errMsg) {
-        this.$message.error(`错误：${res.errMsg}`);
+        this.$message({
+          showClose: true,
+          message: `错误：${res.errMsg}`,
+          type: 'error'
+        });
         return;
       }
       this.$message({
+        showClose: true,
         message: `提交成功`,
         type: 'success'
       });
