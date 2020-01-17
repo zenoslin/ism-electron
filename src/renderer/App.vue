@@ -2,7 +2,7 @@
   <div id="app">
     <el-container>
       <el-aside class="ism-aside" style="width:200px">
-        <el-menu default-active="1" @select="handleSider">
+        <el-menu ref="nav-menu" :default-active="`${curNav}`" @select="handleSider">
           <el-menu-item index="1">
             <i class="el-icon-box"></i>
             <span slot="title">总览</span>
@@ -49,10 +49,11 @@ export default {
     handleSider(val) {
       if (+val === this.curNav) return;
       // 屏蔽切换nav拦截
-      // if (this.curNav === 2 || this.curNav === 3) {
-      //   this.buyingRoute(val);
-      //   return;
-      // }
+      if (this.curNav === 2 || this.curNav === 3) {
+        this.buyingRoute(val);
+        this.$refs['nav-menu'].updateActiveIndex(this.curNav); // 让menu选中状态归位
+        return;
+      }
       this.switchRoute(val);
       this.curNav = +val;
     },
@@ -62,7 +63,7 @@ export default {
     },
     confirmRoute() {
       this.switchRoute(this.orderRoute);
-      this.curNav = +this.orderRoute;
+      this.curNav = +this.orderRoute; // 改变menu选中状态
       this.orderRoute = '';
       this.dialogRouteVisible = false;
     },
