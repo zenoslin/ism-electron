@@ -16,7 +16,7 @@
       :default-sort="{prop: 'id', order: 'ascending'}"
     >
       <el-table-column prop="id" label="ID" width="180" sortable></el-table-column>
-      <el-table-column prop="name" label="姓名" width="180"></el-table-column>
+      <el-table-column prop="name" label="名称" width="180"></el-table-column>
       <el-table-column prop="value" label="数量" width="180" v-if="radio === '物品'"></el-table-column>
       <el-table-column label="操作" v-if="radio === '物品'">
         <template slot-scope="scope">
