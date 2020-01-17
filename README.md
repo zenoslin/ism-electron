@@ -1,35 +1,21 @@
-# ism-electron
+# dism-electron
 
 :ship: An inventory management system app.
 
-Electron + Vue + ElementUI + Nedb
+一个简单的库存管理系统
 
-## Nedb API
+基于Electron + Vue + ElementUI + Nedb开发
 
-### defineData(data)
+## 下载
 
-定义数据
+下载页面 [https://github.com/zenoslin/ism-electron/releases](https://github.com/zenoslin/ism-electron/releases)
 
-| name | type   | data type | need | description      |
-| ---- | ------ | --------- | ---- | ---------------- |
-| data | param  | object    | yes  | 数据             |
-|      | return | Promise   |      | { errMsg, data } |
+win32为windows版本，darwin为macOS版本
 
-### inputDate(dataList)
+## 功能
 
-定义数据
-
-| name     | type   | data type | need | description      |
-| -------- | ------ | --------- | ---- | ---------------- |
-| dataList | param  | array     | yes  | 数据列表         |
-|          | return | Promise   |      | { errMsg, data } |
-
-### removeData(data)
-
-定义数据
-
-| name | type   | data type | need | description      |
-| ---- | ------ | --------- | ---- | ---------------- |
-| data | param  | object    | yes  | 数据             |
-|      | return | Promise   |      | { errMsg, data } |
-
+- 物品&人物添加
+- 仓库总览
+- 进出订单
+- 订单查看&订单筛选
+- 物品进出搜索
