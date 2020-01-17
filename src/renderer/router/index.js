@@ -5,6 +5,7 @@ import home from '../pages/Home';
 import buy from '../pages/Buy';
 import sale from '../pages/Sale';
 import order from '../pages/Order';
+import sreach from '../pages/Sreach';
 
 Vue.use(Router);
 
@@ -29,6 +30,11 @@ export default new Router({
       path: '/order',
       name: 'order',
       component: order
+    },
+    {
+      path: '/sreach',
+      name: 'sreach',
+      component: sreach
     },
     {
       path: '*',

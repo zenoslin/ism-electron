@@ -19,6 +19,10 @@
             <i class="el-icon-tickets"></i>
             <span slot="title">订单</span>
           </el-menu-item>
+          <el-menu-item index="5">
+            <i class="el-icon-search"></i>
+            <span slot="title">搜索</span>
+          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-main>
@@ -80,6 +84,9 @@ export default {
           break;
         case '4':
           this.$router.replace('/order');
+          break;
+        case '5':
+          this.$router.replace('/sreach');
           break;
       }
     }
