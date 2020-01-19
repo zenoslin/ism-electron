@@ -1,8 +1,13 @@
 <template>
   <div id="app">
-    <el-container>
+    <el-container style="height: 100vh;">
       <el-aside class="ism-aside" style="width:200px">
-        <el-menu ref="nav-menu" :default-active="`${curNav}`" @select="handleSider">
+        <el-menu
+          ref="nav-menu"
+          class="ism-menu"
+          :default-active="`${curNav}`"
+          @select="handleSider"
+        >
           <el-menu-item index="1">
             <i class="el-icon-box"></i>
             <span slot="title">总览</span>
@@ -118,6 +123,9 @@ body {
   background-color: $bgcolor;
   color: #333;
   text-align: center;
+  .ism-menu {
+    height: 100%;
+  }
 }
 
 .el-menu {
